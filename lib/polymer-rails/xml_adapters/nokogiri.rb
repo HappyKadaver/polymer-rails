@@ -5,15 +5,16 @@ module Polymer
   module Rails
     module XmlAdapters
       class Nokogiri < Base
+        HTML_OPTIONS = { save_with: ::Nokogiri::XML::Node::SaveOptions::FORMAT | ::Nokogiri::XML::Node::SaveOptions::AS_HTML | ::Nokogiri::XML::Node::SaveOptions::KEEP_HTML_BOOLEAN_ATTR_VALUES}
 
         # XML options for to_xml method
         XML_OPTIONS = { save_with: ::Nokogiri::XML::Node::SaveOptions::NO_EMPTY_TAGS }
 
         # Nodes that should be parsed as XML nodes
-        XML_NODES = ['*[selected]', '*[checked]', '*[src]:not(script)']
+        XML_NODES = ['*[src]:not(script)']
 
         def parse_document data
-          ::Nokogiri::HTML5 data
+          ::Nokogiri::HTML data
         end
 
         def create_node doc, name, content
@@ -27,8 +28,8 @@ module Polymer
         end
 
         def stringify doc
-          xml_nodes(doc).reduce(to_html(doc)) do |output, node|
-            output.gsub(node.to_html, node.to_xml(XML_OPTIONS)).encode(ENCODING)
+          xml_nodes(doc).reduce(doc.to_html(HTML_OPTIONS)) do |output, node|
+            output.gsub(node.to_html(HTML_OPTIONS), node.to_xml(XML_OPTIONS)).encode(ENCODING)
           end
         end
 
@@ -39,9 +40,6 @@ module Polymer
         private
         def xml_nodes doc
           doc.css(XML_NODES.join(','))
-        end
-        def to_html doc
-          doc.css("head,body").children.to_html(encoding: ENCODING).lstrip
         end
       end
     end
