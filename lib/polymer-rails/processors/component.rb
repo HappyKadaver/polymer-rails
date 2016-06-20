@@ -5,18 +5,7 @@ module Polymer
     module Processors
       class Component
         def self.call(input)
-          result = ''
-
-          raise "foo"
-
-          cmd = "vulcanize --inline-scrips --inline-css --strip-comments \"#{calculate_redirects}\""
-          Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
-            stdin.write input[:data]
-
-            result = stdout.read
-          end
-
-          input[:data] = result
+          input[:data] = `vulcanize --inline-scrips --inline-css --strip-comments #{calculate_redirects} "#{input[:filename]}"`
         end
 
         private
