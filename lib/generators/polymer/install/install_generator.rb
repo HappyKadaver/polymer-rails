@@ -9,6 +9,10 @@ module Polymer
         template "application.html.erb", "app/assets/components/application.html.erb"
       end
 
+      def create_elements_html
+        template "elements.html.erb", "app/assets/components/elements/elements.html.erb"
+      end
+
       def inject_js
         insert_into_file "app/assets/javascripts/application.js", before: "//= require jquery\n" do
           out = ""
