@@ -1,10 +1,9 @@
-require 'open3'
-
 module Polymer
   module Rails
     module Processors
       class Component
         def self.call(input)
+          byebug
           input[:data] = `vulcanize --inline-scrips --inline-css --strip-comments #{calculate_redirects} "#{input[:filename]}"`
         end
 
