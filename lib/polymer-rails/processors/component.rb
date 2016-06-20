@@ -14,7 +14,7 @@ module Polymer
             result = stdout.read
           end
 
-          input.merge(data: result)
+          input[:data] = result
         end
 
         private
