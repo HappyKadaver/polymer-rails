@@ -7,6 +7,8 @@ module Polymer
         def self.call(input)
           result = ''
 
+          raise "foo"
+
           cmd = "vulcanize --inline-scrips --inline-css --strip-comments \"#{calculate_redirects}\""
           Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
             stdin.write input[:data]
