@@ -15,7 +15,7 @@ module Polymer
           default_asset_path = ::Rails.root.join 'app', 'assets', 'components'
 
           redirects = ::Rails.application.assets.paths.map do |p|
-            "\"#{default_asset_path}|#{File.join p, 'components'}\""
+            "\"#{default_asset_path}|#{p}\""
           end
 
           "--redirect #{redirects.join ' --redirect'}"
