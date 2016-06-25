@@ -13,7 +13,7 @@ module Polymer
 
       def call(input)
         prepare(input)
-        data = process
+        data = input[:data]
 
         @context.metadata.merge(data: data)
       end

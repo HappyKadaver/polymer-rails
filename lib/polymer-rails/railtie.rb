@@ -23,7 +23,7 @@ module Polymer
           env.context_class.class_eval("include Polymer::Rails::AssetTagHelper")
           env.register_preprocessor 'text/html', Polymer::Rails::Processors::Directive
           env.register_mime_type 'text/html', extensions: ['.html']
-          env.register_bundle_processor 'text/html', ::Sprockets::Bundle
+          env.register_bundle_processor 'text/html', Polymer::Rails::Processors::VulcanizeBundle
           env.register_postprocessor 'text/html', Polymer::Rails::Processors::Component
         end
       end
