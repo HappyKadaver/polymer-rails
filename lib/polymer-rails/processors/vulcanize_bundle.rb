@@ -9,15 +9,10 @@ module Polymer
           pre_vulcanize = Tempfile.new('pre-vulcanize')
           pre_vulcanize.write processed[:data]
           pre_vulcanize.close
-          processed[:data] = `vulcanize --inline-scripts --inline-css --strip-comments --strip-exclude ".*" #{redirects} "#{pre_vulcanize.path}"`
+          processed[:data] = `vulcanize --strip-exclude ".*" "#{pre_vulcanize.path}"`
           pre_vulcanize.unlink
 
           return processed
-        end
-
-        private
-        def self.redirects
-          "--redirect \"#{::Rails.root.join 'app', 'assets', 'components', 'foo'}|#{::Rails.root.join 'vendor', 'assets', 'components'}\""
         end
       end
     end

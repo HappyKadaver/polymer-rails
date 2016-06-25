@@ -13,7 +13,7 @@ module Polymer
 
       def call(input)
         prepare(input)
-        data = input[:data]
+        data = process
 
         @context.metadata.merge(data: data)
       end
@@ -23,6 +23,7 @@ module Polymer
       def prepare(input)
         @context = input[:environment].context_class.new(input)
         @component = Component.new(input[:data])
+        @filename = input[:filename]
       end
 
     end

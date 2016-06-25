@@ -8,6 +8,8 @@ module Polymer
 
         def process
           require_imports
+
+          `vulcanize --inline-scripts --inline-css --strip-comments --strip-exclude ".*" "#{@filename}"`
         end
 
       private
