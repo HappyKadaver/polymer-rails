@@ -23,7 +23,7 @@ module Polymer
       def prepare(input)
         @context = input[:environment].context_class.new(input)
         @component = Component.new(input[:data])
-        @filename = input[:filename]
+        @data = input[:data]
       end
 
     end

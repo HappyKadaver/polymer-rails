@@ -9,7 +9,13 @@ module Polymer
         def process
           require_imports
 
-          `vulcanize --inline-scripts --inline-css --strip-comments --strip-exclude ".*" "#{@filename}"`
+          pre_vulcanize = Tempfile.new('pre-vulcanize')
+          pre_vulcanize.write @data
+          pre_vulcanize.close
+          result = `vulcanize --inline-scripts --inline-css --strip-exclude ".*" "#{pre_vulcanize.path}"`
+          pre_vulcanize.unlink
+
+          return result
         end
 
       private
